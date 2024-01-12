@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const dotenv = require('dotenv');
 dotenv.config();
+const cors = require('cors');
 
 const indexRouter = require('./routes/index');
 const gameRouter = require('./routes/game');
@@ -15,6 +16,16 @@ const gameRouter = require('./routes/game');
 
 
 const app = express();
+/* restrict access later ***********
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://blog-public-two.vercel.app", "https://blog-user-beta.vercel.app"],
+    credentials: true,
+  })
+);*/
+
+
+app.use(cors());
 
 const mongoDB = process.env.MONGODB_URI 
 
