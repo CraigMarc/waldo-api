@@ -2,4 +2,4 @@
 GET http://localhost:3000/game?char_name=waldo&x=1200&y=900
 
 ### check coordin. true
-GET http://localhost:3000/game?char_name=wenda&x=1531&y=800
+GET http://localhost:3000/game?char_name=waldo&x=1220&y=774

@@ -9,8 +9,12 @@ exports.check_get = asyncHandler(async (req, res, next) => {
 
   try {
     let character = await Game.findOne({ 'char_name': req.query.char_name }).exec()
-    
-   if ((req.query.x > character.max_x && req.query.x < character.min_x) || (req.query.y > character.max_y && req.query.y < character.min_y) ) {
+
+    let xCheck = req.query.x > character.max_x && req.query.x < character.min_x
+    let yCheck = req.query.y > character.max_y && req.query.y < character.min_y
+    console.log(xCheck)
+    console.log(yCheck)
+   if (xCheck == true && yCheck == true) {
     res.json({message: true})
    }
    else {
