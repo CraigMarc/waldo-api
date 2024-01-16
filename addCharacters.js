@@ -46,7 +46,7 @@ async function gameCreate(picName, charName, maxX, minX, maxY, minY) {
 }
 // node addUser.js 
 // for username and password see api.database.odt wp file
-gameCreate("board1", 'wizard', 523, 555, 685, 753)
-gameCreate("board1", 'wenda', 1530, 1560, 795, 847)
-gameCreate("board1", 'waldo', 1214, 1261, 721, 821)
+gameCreate("board1", 'wizard', 653, 706, 655, 725)
+gameCreate("board1", 'wenda', 1914, 1949, 763, 809)
+gameCreate("board1", 'waldo', 1520, 1573, 694, 783)
 
