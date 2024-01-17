@@ -24,5 +24,8 @@ router.get("/start", game_controller.start_time);
 
 router.get("/end", game_controller.end_time);
 
+// new high score
+
+router.get("/score", game_controller.new_high_score);
 
 module.exports = router;

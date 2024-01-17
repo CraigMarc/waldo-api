@@ -62,28 +62,23 @@ exports.end_time = asyncHandler(async (req, res, next) => {
 
     const [character, oldScore] = await Promise.all([
       CurrentScore.findOne({ 'user_id': req.query.id }).exec(),
-      //HighScore.find().exec(),
-      HighScore.find().sort({score:-1}).limit(1)
+      HighScore.find().sort({ score: -1 }).limit(1)
     ]);
-   
-   
-    let totalTime = (time - character.start_time)
-    console.log(totalTime)
-   
-    const highScore = new HighScore({
-      userName: req.query.name,
-      score: totalTime,
-  
-    });
-   
-if (oldScore[0].score > totalTime) {
-    await highScore.save()
-    await HighScore.findOneAndDelete({ 'userName': oldScore[0].userName }).exec()
-}
-    await CurrentScore.findOneAndDelete({ 'user_id': req.query.id }).exec()
-    
 
-    res.status(200).json({ message: "score saved" })
+    let totalTime = (time - character.start_time)
+
+
+    if (oldScore[0].score > totalTime) {
+
+      await CurrentScore.findOneAndUpdate({ 'user_id': req.query.id }, { 'score': totalTime }).exec()
+
+      return res.status(200).json({ message: true })
+    }
+    else {
+      await CurrentScore.findOneAndDelete({ 'user_id': req.query.id }).exec()
+
+      return res.status(200).json({ message: false })
+    }
 
   } catch (error) {
     res.status(500).json({ message: error });
@@ -92,3 +87,38 @@ if (oldScore[0].score > totalTime) {
 
 
 })
+
+
+exports.new_high_score = asyncHandler(async (req, res, next) => {
+
+  try {
+
+    const [newScore, oldScore] = await Promise.all([
+      CurrentScore.findOne({ 'user_id': req.query.id }).exec(),
+      HighScore.find().sort({ score: -1 }).limit(1)
+    ]);
+
+    const highScore = new HighScore({
+      userName: req.query.name,
+      score: newScore.score,
+
+    });
+
+    if (req.query.name == oldScore[0].userName) {
+      return res.status(200).json({ message: "username taken" })
+    }
+
+    await highScore.save()
+    await HighScore.findOneAndDelete({ 'userName': oldScore[0].userName }).exec()
+    await CurrentScore.findOneAndDelete({ 'user_id': req.query.id }).exec()
+
+    return res.status(200).json({ message: "new score saved" })
+  }
+
+  catch (error) {
+    res.status(500).json({ message: error });
+  }
+
+
+})
+
