@@ -67,8 +67,7 @@ exports.end_time = asyncHandler(async (req, res, next) => {
 
     let totalTime = (time - character.start_time)
 
-
-    if (oldScore[0].score > totalTime) {
+    if (oldScore.length == 0 || oldScore[0].score > totalTime) {
 
       await CurrentScore.findOneAndUpdate({ 'user_id': req.query.id }, { 'score': totalTime }).exec()
 
@@ -97,12 +96,20 @@ exports.new_high_score = asyncHandler(async (req, res, next) => {
       CurrentScore.findOne({ 'user_id': req.query.id }).exec(),
       HighScore.find().sort({ score: -1 }).limit(1)
     ]);
+    console.log(oldScore)
 
     const highScore = new HighScore({
       userName: req.query.name,
       score: newScore.score,
 
     });
+
+    if (oldScore.length == 0) {
+      await highScore.save()
+      await CurrentScore.findOneAndDelete({ 'user_id': req.query.id }).exec()
+
+      return res.status(200).json({ message: "new score saved" })
+    }
 
     if (req.query.name == oldScore[0].userName) {
       return res.status(200).json({ message: "username taken" })
