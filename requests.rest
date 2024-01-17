@@ -3,3 +3,11 @@ GET http://localhost:3000/game?char_name=waldo&x=1200&y=900
 
 ### check coordin. true
 GET http://localhost:3000/game?char_name=waldo&x=1220&y=774
+
+### start time
+
+GET http://localhost:3000/game/start?id=1234
+
+### end time
+
+GET http://localhost:3000/game/end?id=1234&name=john
