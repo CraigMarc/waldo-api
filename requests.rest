@@ -10,4 +10,4 @@ GET http://localhost:3000/game/start?id=1234
 
 ### end time
 
-GET http://localhost:3000/game/end?id=1234&name=john
+GET http://localhost:3000/game/end?id=1234&name=jay

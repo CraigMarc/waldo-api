@@ -68,9 +68,7 @@ exports.end_time = asyncHandler(async (req, res, next) => {
    
    
     let totalTime = (time - character.start_time)
-
-    
-    console.log(oldScore[0].userName)
+    console.log(totalTime)
    
     const highScore = new HighScore({
       userName: req.query.name,
@@ -78,7 +76,7 @@ exports.end_time = asyncHandler(async (req, res, next) => {
   
     });
    
-if (oldScore.score < totalTime) {
+if (oldScore[0].score > totalTime) {
     await highScore.save()
     await HighScore.findOneAndDelete({ 'userName': oldScore[0].userName }).exec()
 }
