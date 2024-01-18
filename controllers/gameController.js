@@ -87,47 +87,6 @@ exports.end_time = asyncHandler(async (req, res, next) => {
 
 })
 
-/*
-exports.new_high_score = asyncHandler(async (req, res, next) => {
-
-  try {
-
-    const [newScore, oldScore] = await Promise.all([
-      CurrentScore.findOne({ 'user_id': req.body.id }).exec(),
-      HighScore.find().sort({ score: -1 }).limit(1)
-    ]);
-    
-
-    const highScore = new HighScore({
-      userName: req.body.name,
-      score: newScore.score,
-
-    });
-
-    if (oldScore.length == 0) {
-      await highScore.save()
-      await CurrentScore.findOneAndDelete({ 'user_id': req.body.id }).exec()
-
-      return res.status(200).json({ message: "new score saved" })
-    }
-
-    if (req.body.name == oldScore[0].userName) {
-      return res.status(200).json({ message: "username taken" })
-    }
-
-    await highScore.save()
-    await HighScore.findOneAndDelete({ 'userName': oldScore[0].userName }).exec()
-    await CurrentScore.findOneAndDelete({ 'user_id': req.body.id }).exec()
-
-    return res.status(200).json({ message: "new score saved" })
-  }
-
-  catch (error) {
-    res.status(500).json({ message: error });
-  }
-
-
-})*/
 
 exports.new_high_score = [
 
