@@ -28,4 +28,18 @@ router.get("/end", game_controller.end_time);
 
 router.post("/score", game_controller.new_high_score);
 
+// get high score 
+
+router.get("/highscore", game_controller.get_high_score);
+
+
+// delete all current scores
+
+router.get("/deletecurrent", game_controller.delete_current);
+
+
 module.exports = router;
+
+
+
+

@@ -23,3 +23,10 @@ Content-Type: application/json
 {"name": "craig",
 "id":"12345"
 }
+
+### get high score
+
+GET http://localhost:3000/game/highscore
+
+### delete current high scores
+GET http://localhost:3000/game/deletecurrent

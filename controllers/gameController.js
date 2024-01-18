@@ -144,7 +144,39 @@ exports.new_high_score = [
   
   }
 
-
-  
 ]
+
+exports.get_high_score = asyncHandler(async (req, res, next) => {
+ 
+
+  try {
+
+    let hs = await HighScore.find().sort({ score: -1 }).limit(1)
+
+    if (hs.length == 0) {
+      return res.status(200).json({message: "no high score"})
+    }
+
+    return res.status(200).json(hs)
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+
+})
+
+exports.delete_current = asyncHandler(async (req, res, next) => {
+ 
+
+  try {
+
+    await CurrentScore.deleteMany().exec()
+
+   
+
+    res.status(200).json({message: 'deleted records'})
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+
+})
 
