@@ -9,7 +9,7 @@ const CurrentScore = require('../models/currentScore')
 exports.check_get = asyncHandler(async (req, res, next) => {
 
   try {
-    let character = await Game.findOne({ 'char_name': req.query.char_name }).exec()
+    let character = await Game.findOne({ 'char_name': req.query.char_name, 'pic_name': req.query.pic_name }).exec()
 
     let xCheck = req.query.x > character.max_x && req.query.x < character.min_x
     let yCheck = req.query.y > character.max_y && req.query.y < character.min_y

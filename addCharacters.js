@@ -44,9 +44,24 @@ async function gameCreate(picName, charName, maxX, minX, maxY, minY) {
 
     console.log('added char');
 }
-// node addUser.js 
+// node addCharacters.js 
 // for username and password see api.database.odt wp file
+
+// board 1
+/*
 gameCreate("board1", 'wizard', 653, 706, 655, 725)
 gameCreate("board1", 'wenda', 1914, 1949, 763, 809)
-gameCreate("board1", 'waldo', 1520, 1573, 694, 783)
+gameCreate("board1", 'waldo', 1520, 1573, 694, 783)*/
 
+// board 2
+
+gameCreate("board2", 'wizard', 800, 850, 1000, 1050)
+gameCreate("board2", 'wenda', 1000, 1049, 700, 809)
+gameCreate("board2", 'waldo', 1300, 1350, 500, 550)
+
+
+// board 3
+
+gameCreate("board3", 'wizard', 1000, 1050, 700, 755)
+gameCreate("board3", 'wenda', 1200, 1250, 300, 350)
+gameCreate("board3", 'waldo', 1110, 1150, 494, 483)

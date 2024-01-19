@@ -1,8 +1,21 @@
 ### check coordinates false
-GET http://localhost:3000/game?char_name=waldo&x=1200&y=900
+GET http://localhost:3000/game?pic_name=board1&char_name=waldo&x=1200&y=900
 
 ### check coordin. true
-GET http://localhost:3000/game?char_name=waldo&x=1220&y=774
+GET http://localhost:3000/game?pic_name=board1&char_name=waldo&x=1530&y=700
+
+### board 2 coor false
+GET http://localhost:3000/game?pic_name=board2&char_name=waldo&x=1200&y=900
+
+### board 2 coor true
+GET http://localhost:3000/game?pic_name=board2&char_name=wizard&x=810&y=1010
+
+### board 3 false
+GET http://localhost:3000/game?pic_name=board3&char_name=waldo&x=1200&y=900
+
+### board 3 true
+GET http://localhost:3000/game?pic_name=board3&char_name=wenda&x=1210&y=310
+
 
 ### start time
 
