@@ -57,13 +57,15 @@ exports.start_time = asyncHandler(async (req, res, next) => {
 exports.end_time = asyncHandler(async (req, res, next) => {
 
   let time = getTime()
+  
 
   try {
 
     const [character, oldScore] = await Promise.all([
       CurrentScore.findOne({ 'user_id': req.query.id }).exec(),
-      HighScore.find().sort({ score: -1 }).limit(1)
+      HighScore.find({'pic_name': req.query.pic_name}).sort({  score: -1 }).limit(1)
     ]);
+
 
     let totalTime = (time - character.start_time)
 
@@ -109,13 +111,17 @@ exports.new_high_score = [
 
       const [newScore, oldScore] = await Promise.all([
         CurrentScore.findOne({ 'user_id': req.body.id }).exec(),
-        HighScore.find().sort({ score: -1 }).limit(1)
+        HighScore.find({'pic_name': req.body.pic_name}).sort({  score: -1 }).limit(1)
       ]);
+
+      console.log(req.body.name)
+      console.log(oldScore)
       
   
       const highScore = new HighScore({
         userName: req.body.name,
         score: newScore.score,
+        pic_name: req.body.pic_name
   
       });
   
@@ -125,6 +131,8 @@ exports.new_high_score = [
   
         return res.status(200).json({ message: "new score saved" })
       }
+
+      
   
       if (req.body.name == oldScore[0].userName) {
         return res.status(200).json({ message: "username taken" })
@@ -151,7 +159,7 @@ exports.get_high_score = asyncHandler(async (req, res, next) => {
 
   try {
 
-    let hs = await HighScore.find().sort({ score: -1 }).limit(1)
+    let hs = await HighScore.find({'pic_name': req.query.pic_name}).sort({  score: -1 }).limit(1)
 
     if (hs.length == 0) {
       return res.status(200).json({message: "no high score"})

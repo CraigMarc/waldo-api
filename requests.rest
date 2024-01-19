@@ -23,23 +23,22 @@ GET http://localhost:3000/game/start?id=12345
 
 ### end time
 
-GET http://localhost:3000/game/end?id=12345
+GET http://localhost:3000/game/end?pic_name=board2&id=12345
 
-### new high score 
 
-GET http://localhost:3000/game/score?id=12345&name=eric
 
 ### new high score post
 POST http://localhost:3000/game/score
 Content-Type: application/json
 
-{"name": "craig",
-"id":"12345"
+{"name": "jay",
+"id":"12345",
+"pic_name": "board2"
 }
 
 ### get high score
 
-GET http://localhost:3000/game/highscore
+GET http://localhost:3000/game/highscore?pic_name=board2
 
 ### delete current high scores
 GET http://localhost:3000/game/deletecurrent
