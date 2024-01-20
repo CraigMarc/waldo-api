@@ -47,21 +47,26 @@ async function gameCreate(picName, charName, maxX, minX, maxY, minY) {
 // node addCharacters.js 
 // for username and password see api.database.odt wp file
 
-// board 1
+// board 1 ******** wrong coords do not readd get from correct from db
 /*
-gameCreate("board1", 'wizard', 653, 706, 655, 725)
-gameCreate("board1", 'wenda', 1914, 1949, 763, 809)
-gameCreate("board1", 'waldo', 1520, 1573, 694, 783)*/
+gameCreate("board1", 'wizard', 653, 706, 543, 606)
+gameCreate("board1", 'wenda', 1912, 1951, 635, 672)
+gameCreate("board1", 'waldo', 1520, 1577, 577, 654)*/
 
 // board 2
 
-gameCreate("board2", 'wizard', 800, 850, 1000, 1050)
-gameCreate("board2", 'wenda', 1000, 1049, 700, 809)
-gameCreate("board2", 'waldo', 1300, 1350, 500, 550)
+gameCreate("board2", 'wizard', 712, 737, 239, 283)
+gameCreate("board2", 'wenda', 1875, 1909, 1445, 1491)
+gameCreate("board2", 'waldo', 401, 438, 1607, 1657)
 
 
 // board 3
 
-gameCreate("board3", 'wizard', 1000, 1050, 700, 755)
-gameCreate("board3", 'wenda', 1200, 1250, 300, 350)
-gameCreate("board3", 'waldo', 1110, 1150, 494, 483)
+gameCreate("board3", 'wizard', 1669, 1712, 524, 579)
+gameCreate("board3", 'wenda', 1894, 1930, 994, 1042)
+gameCreate("board3", 'waldo', 1394, 1426, 790, 837)
+
+// board 4
+gameCreate("board4", 'wizard', 960, 1000, 858, 931)
+gameCreate("board4", 'wenda', 1969, 2000, 494, 557)
+gameCreate("board4", 'waldo', 1557, 1587, 1332, 1389)
