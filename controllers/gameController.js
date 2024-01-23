@@ -45,8 +45,22 @@ exports.start_time = asyncHandler(async (req, res, next) => {
   });
 
   try {
-    await currentScore.save()
 
+    //delete records over 3 hours old
+
+    let allScores = await CurrentScore.find()
+
+    for (let i = 0; i < allScores.length; i++) {
+      let totalTime = time - allScores[i].start_time
+
+      if (totalTime > 10800000) {
+        await CurrentScore.deleteOne({ _id: allScores[i]._id })
+      }
+    }
+
+
+    // save current time at start
+    await currentScore.save()
     res.status(200).json({ message: "score saved" })
   } catch (error) {
     res.status(500).json({ message: error });
@@ -57,17 +71,18 @@ exports.start_time = asyncHandler(async (req, res, next) => {
 exports.end_time = asyncHandler(async (req, res, next) => {
 
   let time = getTime()
-  
+
 
   try {
 
     const [character, oldScore] = await Promise.all([
       CurrentScore.findOne({ 'user_id': req.query.id }).exec(),
-      HighScore.find({'pic_name': req.query.pic_name}).sort({  score: -1 }).limit(1)
+      HighScore.find({ 'pic_name': req.query.pic_name }).sort({ score: -1 }).limit(1),
+
     ]);
 
-
     let totalTime = (time - character.start_time)
+
 
     if (oldScore.length == 0 || oldScore[0].score > totalTime) {
 
@@ -93,7 +108,7 @@ exports.end_time = asyncHandler(async (req, res, next) => {
 exports.new_high_score = [
 
   body("name").trim().escape(),
- 
+
 
   async function (req, res, next) {
 
@@ -111,58 +126,58 @@ exports.new_high_score = [
 
       const [newScore, oldScore] = await Promise.all([
         CurrentScore.findOne({ 'user_id': req.body.id }).exec(),
-        HighScore.find({'pic_name': req.body.pic_name}).sort({  score: -1 }).limit(1)
+        HighScore.find({ 'pic_name': req.body.pic_name }).sort({ score: -1 }).limit(1)
       ]);
 
       console.log(req.body.name)
       console.log(oldScore)
-      
-  
+
+
       const highScore = new HighScore({
         userName: req.body.name,
         score: newScore.score,
         pic_name: req.body.pic_name
-  
+
       });
-  
+
       if (oldScore.length == 0) {
         await highScore.save()
         await CurrentScore.findOneAndDelete({ 'user_id': req.body.id }).exec()
-  
+
         return res.status(200).json({ message: "new score saved" })
       }
 
-      
-  
+
+
       if (req.body.name == oldScore[0].userName) {
         return res.status(200).json({ message: "username taken" })
       }
-  
+
       await highScore.save()
       await HighScore.findOneAndDelete({ 'userName': oldScore[0].userName }).exec()
       await CurrentScore.findOneAndDelete({ 'user_id': req.body.id }).exec()
-  
+
       return res.status(200).json({ message: "new score saved" })
     }
-  
+
     catch (error) {
       res.status(500).json({ message: error });
     }
-  
-  
+
+
   }
 
 ]
 
 exports.get_high_score = asyncHandler(async (req, res, next) => {
- 
+
 
   try {
 
-    let hs = await HighScore.find({'pic_name': req.query.pic_name}).sort({  score: -1 }).limit(1)
+    let hs = await HighScore.find({ 'pic_name': req.query.pic_name }).sort({ score: -1 }).limit(1)
 
     if (hs.length == 0) {
-      return res.status(200).json({message: "no high score"})
+      return res.status(200).json({ message: "no high score" })
     }
 
     return res.status(200).json(hs)
@@ -173,15 +188,15 @@ exports.get_high_score = asyncHandler(async (req, res, next) => {
 })
 
 exports.delete_current = asyncHandler(async (req, res, next) => {
- 
+
 
   try {
 
     await CurrentScore.deleteMany().exec()
 
-   
 
-    res.status(200).json({message: 'deleted records'})
+
+    res.status(200).json({ message: 'deleted records' })
   } catch (error) {
     res.status(500).json({ message: error });
   }
