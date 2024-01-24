@@ -49,9 +49,9 @@ async function gameCreate(picName, charName, maxX, minX, maxY, minY) {
 
 // board 1 ******** wrong coords do not readd get from correct from db
 /*
-gameCreate("board1", 'wizard', 653, 706, 543, 606)
-gameCreate("board1", 'wenda', 1912, 1951, 635, 672)
-gameCreate("board1", 'waldo', 1520, 1577, 577, 654)*/
+gameCreate("board1", 'wizard', 653, 706, 648, 734)
+gameCreate("board1", 'wenda', 1907, 1951, 756, 813)
+gameCreate("board1", 'waldo', 1517, 1581, 692, 791)*/
 
 // board 2
 
